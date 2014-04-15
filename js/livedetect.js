@@ -13,6 +13,7 @@
 			 Brightcove Live module creates unique URLs.
 	*/
 
+  var retryDelay = 10; // Seconds between attempts
 
   var _player = brightcove.api.getExperience();
   var videoPlayer = _player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
@@ -29,7 +30,6 @@
   var init = function() {
     videoPlayer.getCurrentVideo(function(v) {
       if (v && v.defaultURL && v.defaultURL.indexOf('m3u8') > 1 && v.length && v.length == -1) {
-        console.log(v);
         $(overlay).show();
         getURL(v.defaultURL);
       } else {
@@ -43,14 +43,14 @@
       type: "GET",
       url: url,
       success: function(data) {
-        console.log("success");
+        console.log("HLS URL retrieved. Playback now available.");
         $(overlay).fadeOut();
       },
       error: function() {
-        console.log("error");
+        console.log("HLS URL unavailable, retrying in " + retryDelay + " seconds");
         setTimeout(function() {
           getURL(url);
-        }, 10000)
+        }, retryDelay * 1000)
       }
     });
   }
