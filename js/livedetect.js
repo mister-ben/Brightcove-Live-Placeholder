@@ -22,8 +22,9 @@
   $(overlay).css({
     backgroundSize: "100%",
     backgroundImage: "url('http://upload.wikimedia.org/wikipedia/commons/4/4d/Veneto_Testcard.jpg')",
-    width: $(window).width(),
-    height: $(window).height(),
+    width: "100%",
+    height: "100%",
+    position: "fixed",
     display: "none"
   });
 
