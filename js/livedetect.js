@@ -46,6 +46,9 @@
       success: function(data) {
         console.log("HLS URL retrieved. Playback now available.");
         $(overlay).fadeOut();
+        if ( videoPlayer.canPlayWithoutInteraction() ) {
+        	videoPlayer.play();
+        }
       },
       error: function() {
         console.log("HLS URL unavailable, retrying in " + retryDelay + " seconds");
